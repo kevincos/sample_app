@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-class User < ActiveRecord::Base
-=======
 # == Schema Information
 # Schema version: 20110308013400
 #
@@ -15,5 +12,13 @@ class User < ActiveRecord::Base
 
 class User < ActiveRecord::Base
   attr_accessible :name, :email
->>>>>>> fdd98454d37c8b9b9e67f8554600b90ce1bc7493
+  
+  email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  
+  validates :name, :presence => true,
+                    :length => {:maximum=>50}
+  validates :email, :presence => true,
+                    :format=> {:with=>email_regex},
+                    :uniqueness => {:case_sensitive=>false}
+
 end
